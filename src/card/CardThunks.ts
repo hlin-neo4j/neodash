@@ -76,7 +76,7 @@ export const updateReportTypeThunk = (id, type) => (dispatch: any, getState: any
 };
 
 export const updateFieldsThunk =
-  (id, fields, schema = false) =>
+  (id, fields, schema = false, additive = false) =>
   (dispatch: any, getState: any) => {
     try {
       const state = getState();
@@ -118,7 +118,8 @@ export const updateFieldsThunk =
               }
             } else if (selectableFields[selection].type == SELECTION_TYPES.NODE_PROPERTIES) {
               // For node property selections, select the most obvious properties of the node to display.
-              const selection = getSelectionBasedOnFields(fields, oldSelection, autoAssignSelectedProperties);
+              // #hack - add in oldSelection and additive boolean to determine if we can default to oldSelection
+              const selection = getSelectionBasedOnFields(fields, oldSelection, autoAssignSelectedProperties, additive);
               dispatch(updateAllSelections(pagenumber, id, selection));
             } else {
               // Else, default the selection to the Nth item of the result set fields.
