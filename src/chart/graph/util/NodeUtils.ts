@@ -65,10 +65,13 @@ export const generateNodeCanvasObject = (
   styleRules: any,
   selection: any
 ) => {
+  const label = selection && selection[node.mainLabel] ? getNodeLabel(selection, node) : '';
   if (icons && icons[node.mainLabel]) {
-    drawDataURIOnCanvas(node, icons[node.mainLabel], ctx, defaultNodeSize);
+    drawDataURIOnCanvas(node, icons[node.mainLabel], ctx, defaultNodeSize, label);
+    ctx.fillStyle = evaluateRulesOnNode(node, 'node label color', nodeLabelColor, styleRules);
+    ctx.textAlign = 'center';
+    ctx.fillText(label, node.x ? node.x : 0, node.y ? node.y + 1 : 0);
   } else {
-    const label = selection && selection[node.mainLabel] ? getNodeLabel(selection, node) : '';
     const fontSize = nodeLabelFontSize;
     ctx.font = `${fontSize}px Sans-Serif`;
     ctx.fillStyle = evaluateRulesOnNode(node, 'node label color', nodeLabelColor, styleRules);
