@@ -5,7 +5,7 @@ import { getDashboardSettings, getDashboardTheme, getDashboardTitle, getPages } 
 import { setConnectionModalOpen } from '../../application/ApplicationActions';
 import { applicationGetStandaloneSettings, applicationGetCustomHeader } from '../../application/ApplicationSelectors';
 import { getDashboardIsEditable, getPageNumber } from '../../settings/SettingsSelectors';
-import { NeoDashboardHeaderLogo } from './DashboardHeaderLogo';
+import NeoDashboardHeaderLogo from './DashboardHeaderLogo';
 import NeoAboutButton from './DashboardHeaderAboutButton';
 import { NeoLogoutButton } from './DashboardHeaderLogoutButton';
 import { NeoDashboardHeaderDownloadImageButton } from './DashboardHeaderDownloadImageButton';
@@ -49,6 +49,7 @@ export const NeoDashboardHeader = ({
   const content = (
     <div className='n-relative n-bg-palette-neutral-bg-weak n-w-full'>
       <div className='n-min-w-full'>
+        {/* <div className="n-flex n-justify-between n-h-16 n-items-center n-py-6 md:n-justify-start md:n-space-x-10 n-mx-4 n-bg-[url('/aptiv-icon.png')]"> */}
         <div className='n-flex n-justify-between n-h-16 n-items-center n-py-6 md:n-justify-start md:n-space-x-10 n-mx-4'>
           <NeoDashboardHeaderLogo resetApplication={resetApplication} />
           <nav className='n-items-center n-justify-center n-flex n-flex-1 n-w-full n-font-semibold'>

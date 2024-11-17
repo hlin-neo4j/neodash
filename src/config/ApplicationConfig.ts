@@ -20,6 +20,9 @@ export const DASHBOARD_HEADER_TITLE_COLOR = styleConfig?.style?.DASHBOARD_HEADER
 export const DASHBOARD_HEADER_BRAND_LOGO =
   styleConfig?.style?.DASHBOARD_HEADER_BRAND_LOGO || 'neo4j-icon-color-full.png';
 
+export const DASHBOARD_HEADER_BRAND_LOGO_DARK =
+  styleConfig?.style?.DASHBOARD_HEADER_BRAND_LOGO_DARK || 'neo4j-icon-color-full.png';
+
 export const IS_CUSTOM_LOGO = Boolean(styleConfig?.style?.DASHBOARD_HEADER_BRAND_LOGO);
 
 export const CUSTOM_CONNECTION_FOOTER_TEXT = ''; // ''
