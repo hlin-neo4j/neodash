@@ -440,7 +440,7 @@ export function getSelectionBasedOnFields(
   additive: boolean
 ) {
   // if additive, keep the old selection
-  const selection = additive ? structuredClone(oldSelection) : {};
+  const selection = additive ? structuredClone(oldSelection) : structuredClone(oldSelection);
 
   // if new field not found in old selection, use a default
   fields.forEach((nodeLabelAndProperties) => {
