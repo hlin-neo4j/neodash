@@ -29,6 +29,7 @@ export const categoricalColorSchemes = {
     '#a2836e',
     '#674d3c',
   ],
+  aptiv: ['#b2beb5'],
   nivo: ['#e8c1a0', '#f47560', '#f1e15b', '#e8a838', '#61cdbb', '#97e3d5'],
   category10: schemeCategory10,
   accent: schemeAccent,

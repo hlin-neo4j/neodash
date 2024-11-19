@@ -93,6 +93,7 @@ const _REPORT_TYPES = {
         type: SELECTION_TYPES.LIST,
         values: [
           'neodash',
+          'aptiv',
           'nivo',
           'category10',
           'accent',
