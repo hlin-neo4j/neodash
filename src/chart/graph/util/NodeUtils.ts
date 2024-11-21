@@ -67,16 +67,18 @@ export const generateNodeCanvasObject = (
 ) => {
   const label = selection && selection[node.mainLabel] ? getNodeLabel(selection, node) : '';
   if (icons && icons[node.mainLabel]) {
-    drawDataURIOnCanvas(node, icons[node.mainLabel], ctx, defaultNodeSize, label);
-    ctx.fillStyle = evaluateRulesOnNode(node, 'node label color', nodeLabelColor, styleRules);
-    ctx.textAlign = 'center';
-    ctx.fillText(label, node.x ? node.x : 0, node.y ? node.y + 1 : 0);
-  } else {
-    const fontSize = nodeLabelFontSize;
-    ctx.font = `${fontSize}px Sans-Serif`;
-    ctx.fillStyle = evaluateRulesOnNode(node, 'node label color', nodeLabelColor, styleRules);
-    ctx.textAlign = 'center';
-    ctx.fillText(label, node.x ? node.x : 0, node.y ? node.y + 1 : 0);
+    drawDataURIOnCanvas(node, icons[node.mainLabel], ctx, defaultNodeSize);
+  }
+
+  ctx.font = `${nodeLabelFontSize}px Sans-Serif`;
+  ctx.fillStyle = evaluateRulesOnNode(node, 'node label color', nodeLabelColor, styleRules);
+  ctx.textAlign = 'left';
+  const X_OFFSET = 7; // TODO REFACTOR TO CHARTPROPS AND USE SETTINGS
+  const Y_OFFSET = 0; // TODO REFACTOR TO CHARTPROPS AND USE SETTINGS
+  ctx.fillText(label, node.x ? node.x + X_OFFSET : X_OFFSET, node.y ? node.y + 1 + Y_OFFSET : Y_OFFSET);
+
+  if (!(icons && icons[node.mainLabel])) {
+    // keeping legacy logic of only running this for non-icons
     if (frozen && !node.fx && !node.fy && nodePositions) {
       node.fx = node.x;
       node.fy = node.y;
