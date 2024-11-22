@@ -43,7 +43,7 @@
     "grouped-accessor-pairs": "error",
     "line-comment-position": "off", // Off for v1
     "lines-between-class-members": "error",
-    "max-depth": "error",
+    "max-depth": "off",
     "max-len": [
       "off", // Off for v1
       {
