@@ -53,7 +53,9 @@ export async function runCypherQuery(
   setSchema = () => {
     // eslint-disable-next-line no-console
     // console.log(`Query runner attempted to set schema: ${JSON.stringify(schema)}`);
-  }
+  },
+  thisPopulateQueryTimestamp = -1,
+  getLastTimestampDispatch: any = null
 ) {
   // If no query specified, we don't do anything.
   if (query.trim() == '') {
@@ -110,19 +112,34 @@ export async function runCypherQuery(
 
       if (records == null) {
         setStatus(QueryStatus.NO_DRAWABLE_DATA);
-        // console.log("TODO remove this - QUERY RETURNED NO DRAWABLE DATA!")
+        // console.log('TODO remove this - QUERY RETURNED NO DRAWABLE DATA!');
         transaction.commit();
         return;
       } else if (records.length > rowLimit) {
         setStatus(QueryStatus.COMPLETE_TRUNCATED);
         setRecords(records.slice(0, rowLimit));
-        // console.log("TODO remove this - QUERY RETURNED WAS TRUNCTURED!")
+        // console.log('TODO remove this - QUERY RETURNED WAS TRUNCTURED!');
         transaction.commit();
         return;
       }
       setStatus(QueryStatus.COMPLETE);
-      setRecords(records);
-      // console.log("TODO remove this - QUERY WAS EXECUTED SUCCESFULLY!")
+      if (getLastTimestampDispatch !== null) {
+        console.log(
+          thisPopulateQueryTimestamp,
+          `Query complete for this`,
+          `, report.lastQueryTs =`,
+          getLastTimestampDispatch()
+        );
+
+        const lastTimestamp = getLastTimestampDispatch();
+        if (thisPopulateQueryTimestamp >= lastTimestamp) {
+          setRecords(records);
+        }
+      } else {
+        setRecords(records);
+      }
+
+      // console.log('TODO remove this - QUERY WAS EXECUTED SUCCESFULLY!', records);
 
       transaction.commit();
     })
@@ -130,6 +147,7 @@ export async function runCypherQuery(
       // setFields([]);
 
       // Process timeout errors.
+      debugger;
       if (
         e.message.startsWith(
           'The transaction has been terminated. ' +

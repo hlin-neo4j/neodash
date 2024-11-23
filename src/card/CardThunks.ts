@@ -183,3 +183,14 @@ export const updateReportSettingThunk = (id, setting, value) => (dispatch: any, 
     dispatch(createNotificationThunk('Error when updating report settings', e));
   }
 };
+
+export const testThunk = (id) => (dispatch: any, getState: any) => {
+  try {
+    const state = getState();
+    const { pagenumber } = state.dashboard.settings;
+    const report = state.dashboard.pages[pagenumber].reports.find((o) => o.id === id);
+    return report.lastPopulateQueryTimestamp;
+  } catch (e) {
+    dispatch(createNotificationThunk('error', e));
+  }
+};
