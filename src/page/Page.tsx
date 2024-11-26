@@ -12,6 +12,11 @@ import { GRID_COMPACTION_TYPE } from '../config/PageConfig';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+const ROW_HEIGHT = 12; // changed from 100 to 14 for more granular sizing
+const ADD_CARD_HEIGHT = 21; // original=4
+const NEW_CARD_WIDTH = 6;
+const NEW_CARD_HEIGHT = 20;
+
 /**
  * A component responsible for rendering the **current** page, a collection of reports.
  */
@@ -38,6 +43,7 @@ export const NeoPage = ({
         w: 6,
         h: 3,
         isDraggable: false,
+        minH: 1,
       },
     ],
   };
@@ -107,9 +113,9 @@ export const NeoPage = ({
             y: report.y || 0,
             i: getReportKey(pagenumber, report.id),
             w: Math.max(parseInt(report.width), 4) || 4,
-            h: Math.max(parseInt(report.height), 2) || 2,
+            h: Math.max(parseInt(report.height), 5) || 5,
             minW: 4,
-            minH: 2,
+            minH: 1,
             resizeHandles: availableHandles(),
             isDraggable: true,
           };
@@ -119,9 +125,9 @@ export const NeoPage = ({
           y: y,
           i: getReportKey(pagenumber, '999999'),
           w: 6,
-          h: 4,
+          h: ADD_CARD_HEIGHT,
           minW: 6,
-          minH: 4,
+          minH: ADD_CARD_HEIGHT,
           isDraggable: false,
           isResizable: false,
         },
@@ -132,7 +138,7 @@ export const NeoPage = ({
         <NeoAddCard
           onCreatePressed={() => {
             const { x, y } = getAddCardButtonPosition();
-            onCreatePressed(x, y, 6, 4);
+            onCreatePressed(x, y, NEW_CARD_WIDTH, NEW_CARD_HEIGHT);
           }}
         />
       </Grid>
@@ -152,7 +158,7 @@ export const NeoPage = ({
         className={`layout neodash-card-editable-${editable} ${animated ? 'animated' : 'not-animated'}`}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         cols={{ lg: 24, md: 20, sm: 12, xs: 8, xxs: 4 }}
-        rowHeight={100}
+        rowHeight={ROW_HEIGHT}
         compactType={GRID_COMPACTION_TYPE}
         onDrag={() => {
           if (!isDragging) {
